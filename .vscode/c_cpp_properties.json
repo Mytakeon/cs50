@@ -1,0 +1,24 @@
+{
+  "env": {
+    "myDefaultIncludePath": ["${workspaceFolder}"],
+    "myCompilerPath": "/usr/local/bin/gcc-7"
+  },
+  "configurations": [
+    {
+      "name": "Mac",
+      "intelliSenseMode": "clang-x64",
+      "includePath": ["${myDefaultIncludePath}"],
+      "macFrameworkPath": ["/System/Library/Frameworks"],
+      "defines": ["FOO", "BAR=100"],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "browse": {
+        "path": ["${workspaceFolder}"],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": ""
+      }
+    }
+  ],
+  "version": 4
+}
