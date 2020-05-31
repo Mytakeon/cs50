@@ -1,0 +1,3 @@
+check50
+style50
+python-magic-bin==0.4.14
