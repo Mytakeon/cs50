@@ -241,9 +241,9 @@ RGBTRIPLE sobel_filter(RGBTRIPLE neighbor_pixels[])
         sum_y_blue += neighbor_pixels[i].rgbtBlue * GY[i];
     }
 
-    int red = ceiling((sqrt(sum_x_red * sum_x_red + sum_y_red * sum_y_red)));
-    int green = ceiling((sqrt(sum_x_green * sum_x_green + sum_y_green * sum_y_green)));
-    int blue = ceiling((sqrt(sum_x_blue * sum_x_blue + sum_y_blue * sum_y_blue)));
+    int red = ceiling(round(sqrt(sum_x_red * sum_x_red + sum_y_red * sum_y_red)));
+    int green = ceiling(round(sqrt(sum_x_green * sum_x_green + sum_y_green * sum_y_green)));
+    int blue = ceiling(round(sqrt(sum_x_blue * sum_x_blue + sum_y_blue * sum_y_blue)));
 
     return (RGBTRIPLE)
     {
