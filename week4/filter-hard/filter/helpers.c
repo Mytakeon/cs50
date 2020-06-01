@@ -5,6 +5,7 @@
 RGBTRIPLE average_color(RGBTRIPLE neighbor_pixels[], int n_pixels);
 RGBTRIPLE sobel_filter(RGBTRIPLE neighbor_pixels[]);
 int ceiling(int result);
+
 int GX[9] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
 int GY[9] = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
 
@@ -54,7 +55,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     RGBTRIPLE new_image[height][width];
     int n;
 
-    // Explicitely setting the neighbor pixels is still doabe in 2D, but is getting
+    // Explicitely setting the neighbor pixels is still doable in 2D, but is getting
     // a little verbose. A loop would + condition would also work
     for (int i = 0; i < height; i++)
     {
@@ -102,16 +103,16 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 else if (j == width - 1) // bottom-right corner
                 {
                     neighbor_pixels[1] = image[i][j - 1];
-                    neighbor_pixels[2] = image[i + 1][j - 1];
-                    neighbor_pixels[3] = image[i + 1][j];
+                    neighbor_pixels[2] = image[i - 1][j - 1];
+                    neighbor_pixels[3] = image[i - 1][j];
                 }
                 else
                 {
                     n = 6;
                     neighbor_pixels[1] = image[i][j - 1];
-                    neighbor_pixels[2] = image[i + 1][j - 1];
-                    neighbor_pixels[3] = image[i + 1][j];
-                    neighbor_pixels[4] = image[i + 1][j + 1];
+                    neighbor_pixels[2] = image[i - 1][j - 1];
+                    neighbor_pixels[3] = image[i - 1][j];
+                    neighbor_pixels[4] = image[i - 1][j + 1];
                     neighbor_pixels[5] = image[i][j + 1];
                 }
             }
@@ -162,23 +163,6 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         }
     }
 }
-
-RGBTRIPLE average_color(RGBTRIPLE neighbor_pixels[], int n_pixels)
-{
-    int red = 0;
-    int green = 0;
-    int blue = 0;
-
-    for (int i = 0; i < n_pixels; i++)
-    {
-        red += neighbor_pixels[i].rgbtRed;
-        green += neighbor_pixels[i].rgbtGreen;
-        blue += neighbor_pixels[i].rgbtBlue;
-    }
-
-    return (RGBTRIPLE){.rgbtRed = red / n_pixels, .rgbtGreen = green / n_pixels, .rgbtBlue = blue / n_pixels};
-}
-
 // Detect edges using Sobel edge detection algorithm
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
@@ -190,20 +174,24 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            // iterate over pixels. k = rows, j = columns
+            // iterate over neighbor pixels. k = rows, j = columns
             for (int k = -1; k < 2; k++)
             {
-
                 for (int l = -1; l < 2; l++)
                 {
-                    if (k + i < 0 || k + i > width - 1) // overflow left and right
+                    if (k + i < 0 || k + i > height - 1) // overflow left and right
                     {
-                        // pixels 0, 3, 6 are white
-                        pixel = (RGBTRIPLE){.rgbtRed = 0, .rgbtGreen = 0, .rgbtBlue = 0};
+                        pixel = (RGBTRIPLE)
+                        {
+                            .rgbtRed = 0, .rgbtGreen = 0, .rgbtBlue = 0
+                        };
                     }
-                    else if (j + l < 0 || j + l > height - 1) // overflow top and bottom
+                    else if (j + l < 0 || j + l > width - 1) // overflow top and bottom
                     {
-                        pixel = (RGBTRIPLE){.rgbtRed = 0, .rgbtGreen = 0, .rgbtBlue = 0};
+                        pixel = (RGBTRIPLE)
+                        {
+                            .rgbtRed = 0, .rgbtGreen = 0, .rgbtBlue = 0
+                        };
                     }
                     else
                     {
@@ -235,7 +223,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 
 RGBTRIPLE sobel_filter(RGBTRIPLE neighbor_pixels[])
 {
-
     float sum_x_red = 0.0;
     float sum_x_green = 0.0;
     float sum_x_blue = 0.0;
@@ -254,11 +241,33 @@ RGBTRIPLE sobel_filter(RGBTRIPLE neighbor_pixels[])
         sum_y_blue += neighbor_pixels[i].rgbtBlue * GY[i];
     }
 
-    int red = ceiling((sum_x_red * sum_x_red + sum_y_red * sum_y_red));
-    int green = ceiling((sum_x_green * sum_x_green + sum_y_green * sum_y_green));
-    int blue = ceiling((sum_x_blue * sum_x_blue + sum_y_blue * sum_y_blue));
+    int red = ceiling((sqrt(sum_x_red * sum_x_red + sum_y_red * sum_y_red)));
+    int green = ceiling((sqrt(sum_x_green * sum_x_green + sum_y_green * sum_y_green)));
+    int blue = ceiling((sqrt(sum_x_blue * sum_x_blue + sum_y_blue * sum_y_blue)));
 
-    return (RGBTRIPLE){.rgbtRed = red, .rgbtGreen = green, .rgbtBlue = blue};
+    return (RGBTRIPLE)
+    {
+        .rgbtRed = red, .rgbtGreen = green, .rgbtBlue = blue
+    };
+}
+
+RGBTRIPLE average_color(RGBTRIPLE neighbor_pixels[], int n_pixels)
+{
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+
+    for (int i = 0; i < n_pixels; i++)
+    {
+        red += neighbor_pixels[i].rgbtRed;
+        green += neighbor_pixels[i].rgbtGreen;
+        blue += neighbor_pixels[i].rgbtBlue;
+    }
+
+    return (RGBTRIPLE)
+    {
+        .rgbtRed = round(red / (float)n_pixels), .rgbtGreen = round(green / (float)n_pixels), .rgbtBlue = round(blue / (float)n_pixels)
+    };
 }
 
 int ceiling(int result)
