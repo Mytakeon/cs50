@@ -2,17 +2,29 @@
   "tasks": [
     {
       "type": "shell",
-      "label": "gcc build active file",
-      "command": "/usr/bin/gcc",
+      "label": "build active file",
+      "command": "clang",
       "args": [
-        "-lcs50",
-        "-g",
+        "-ggdb3",
+        "-O0",
+        "-std=c11",
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+        "-Wno-sign-compare",
+        "-Wno-unused-parameter",
+        "-Wno-unused-variable",
+        "-Wshadow",
         "${file}",
+        "-lcs50",
+        "-lm",
         "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
+        "${relativeFileDirname}/${fileBasenameNoExtension}"
       ],
-      "options": {
-        "cwd": "/usr/bin"
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
       }
     }
   ],

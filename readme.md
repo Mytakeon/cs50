@@ -2,7 +2,7 @@ Repository to develop and run CS50 assignments locally.
 
 ## Installation
 
-Prerequisite: GCC, VScode, Python 3
+Prerequisite: clang, VScode, Python 3
 
 Install `astyle` (only required by `style50`):
 ```bash
@@ -10,17 +10,18 @@ brew install astyle  # macOS
 apt-get astyle  # Ubuntu
 ```
 
-Install CS50's python packages, to be able to run `check50` and `style50`:
+Install CS50's python packages, to be able to run `check50`, `style50`, `submit50`:
 ```bash
-python3 -m venv my_venv
-source my_venv/bin/activate  # macOS
+python3 -m venv venv
+source venv/bin/activate  # macOS
 pip3 install -r requirements.txt
 ```
 
 ## Usage
 
 Use the existing configurations in `.vscode` to compile, run and debug your code.
-If arguments are required, add them in `.vscode/launch.json`, in the `args` list.
+To compile the file you are currently editing, you can use `cmd/ctrl + shift + B`.
+If arguments are required when debugging, add them in `.vscode/launch.json`, in the `args` list.
 
 ---
 
