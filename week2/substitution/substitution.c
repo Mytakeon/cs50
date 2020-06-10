@@ -6,7 +6,6 @@
 void get_ciphertext(string text, string key);
 bool isvalid(string key, int size);
 
-
 int main(int argc, char *argv[])
 {
     if (argc != 2)
@@ -38,14 +37,13 @@ void get_ciphertext(string text, string key)
         c = text[i];
         if (isalpha(c))
         {
-            int index = tolower(c) - 'a';  // index of character in alphabet
+            int index = tolower(c) - 'a'; // index of character in alphabet
             char new_letter = key[index];
 
             // print instead the corresponding key. Be case sensitive.
             if (islower(c))
             {
                 printf("%c", tolower(new_letter));
-
             }
             else
             {
@@ -91,5 +89,4 @@ bool isvalid(string key, int size)
         }
     }
     return true;
-
 }

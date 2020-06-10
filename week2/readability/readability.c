@@ -7,12 +7,10 @@ int count_words(string text);
 int count_sentences(string text);
 void compute_grade(string text);
 
-
 int main(void)
 {
     string text = get_string("Text: ");
     compute_grade(text);
-
 }
 
 int count_letters(string text)
