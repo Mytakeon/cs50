@@ -9,12 +9,12 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",
-      "args": [],
+      "args": ["texts/cat"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "externalConsole": false,
-      "MIMode": "lldb",
-      "preLaunchTask": "Build active file"
+      "MIMode": "lldb"
+      // "preLaunchTask": "Build active file"
     }
   ]
 }
