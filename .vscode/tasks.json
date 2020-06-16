@@ -40,8 +40,12 @@
     },
     {
       "label": "Build and Run active file",
-      "dependsOn": ["Build active file", "Run active file"],
-      "dependsOrder": "sequence"
+      "dependsOn": [
+        "Build active file",
+        "Run active file"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
     }
   ],
   "version": "2.0.0"
