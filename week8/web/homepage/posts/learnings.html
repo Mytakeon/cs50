@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../styles.css" rel="stylesheet" />
+    <title>Mytakeon's blog</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("#navbar-bottom").load("../navbar-bottom.html");
+        });
+        $(function () {
+            $("#navbar-top").load("../navbar-top.html");
+        });
+    </script>
+
+</head>
+
+<div id="navbar-top"></div>
+
+<body>
+    <div class="page">
+        <h1>What this assignment is teaching me</h1>
+        <p>
+            Here is a short and quick list of things I learnt while doing this assignment:
+        <ul>
+            <li>Re-using the same html code is possible by dynamically loading the page with JQuery. JQuery, as its name
+                suggests, allows you to query the DOM, and then manipulate it. In our case, we search for the
+                placeholder that we want to replace with the duplicate HTML, then load the corresponding static HTML
+                file</li>
+            <li>CORS: Cross origin resource sharing: it is a policy in web browsers that disables the ability of scripts
+                to fetch local files on the client's computer. Letting websites access your local files would be
+                dangerous. Instead, only accessing files from the same domain is enabled by default. To bypass this, you
+                can serve the files locally, then access that server, for example with "python -m SimpleHTTPServer".
+            </li>
+            
+        </ul>
+        </p>
+    </div>
+</body>
+<div id="navbar-bottom"></div>
+
+</html>

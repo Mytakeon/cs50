@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-        <link href="styles.css" rel="stylesheet">
-        <title>My Webpage</title>
-    </head>
-    <body>
-        hello, homepage
-    </body>
+
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+  <title>Mytakeon's blog</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+      $("#navbar-bottom").load("navbar-bottom.html");
+    });
+    $(function () {
+      $("#navbar-top").load("navbar-top.html");
+    });
+  </script>
+
+</head>
+
+<body>
+  <div class="page">
+    <div id="navbar-top"></div>
+    <div class="content">
+      <div class="about">
+        <img class="profile" src="./static/profile.jpg" alt="A painting">
+        <div>
+          <p>Hello!</p>
+          <p>My name is Mytakeon, and this is where I write about programming and other things.
+            Feel free to reach out at <a href="mailto: me@email.com">me@email.com</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h1>2020</h1>
+        <div class="posts">
+          <p>
+            <a href="posts/cs50.html">Completing CS50</a>
+          </p>
+          <p>
+            <a href="posts/learnings.html">What this assignment is teaching me</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<div id="navbar-bottom"></div>
+
 </html>
