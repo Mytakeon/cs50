@@ -16,12 +16,15 @@ app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Ensure responses aren't cached
+
+
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
+
 
 # Custom filter
 app.jinja_env.filters["usd"] = usd
@@ -113,13 +116,41 @@ def logout():
 @login_required
 def quote():
     """Get stock quote."""
-    return apology("TODO")
+    if request.method == "GET":
+        return render_template("get_quote.html")
+
+    ticker = request.form.get("quote")
+    quote = lookup(ticker)
+    if not quote:
+        return apology(f"Ticker '{ticker}' not found")
+    
+    return render_template("quote.html", quote=usd(quote))
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-    return apology("TODO")
+    if request.method == "GET":
+        return render_template("register.html")
+
+    if request.method == "POST":
+        username = request.form.get("username")
+        if not username:
+            return apology("must provide username", 403)
+
+        rows = db.execute("SELECT * FROM users WHERE username = :username",
+                          username=username)
+        if len(rows) == 1:
+            return apology("This username is already taken", 403)
+
+        password = request.form.get("password")
+        if not password:
+            return apology("must provide password", 403)
+
+        db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
+                   username=username, hash=generate_password_hash(password))
+
+        return redirect("/")
 
 
 @app.route("/sell", methods=["GET", "POST"])
