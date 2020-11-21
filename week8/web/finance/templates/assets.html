@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+My assets
+{% endblock %}
+
+{% block main %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for asset in assets %}
+        <tr>
+            <td>{{ asset["symbol"] }}</td>
+            <td>{{ asset["price"] }}</td>
+            <td>{{ asset["quantity"] }}</td>
+            <td>{{ asset["total"] }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>CASH</td>
+            <td></td>
+            <td></td>
+            <td>{{ cash }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>{{ total }}</b></td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
